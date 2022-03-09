@@ -1,4 +1,6 @@
+import 'package:ecommerece_app/blocs/cart/cart_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../model/model.dart';
 
@@ -62,11 +64,31 @@ class ProductCard extends StatelessWidget {
                                   .headline6!
                                   .copyWith(color: Colors.white))
                         ]),
-                    Expanded(
-                        child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.add_circle,
-                                color: Colors.white))),
+                    BlocBuilder<CartBloc, CartState>(
+                      builder: (context, state) {
+                        if (state is CartLoading) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                        if (state is CartLoaded) {
+                          return Expanded(
+                              child: IconButton(
+                                  onPressed: () {
+                                    const snackBar = SnackBar(
+                                        content: Text("Added to your cart"));
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
+                                    context
+                                        .read<CartBloc>()
+                                        .add(AddProduct(product));
+                                  },
+                                  icon: const Icon(Icons.add_circle,
+                                      color: Colors.white)));
+                        } else {
+                          return const Text("Something went wrong");
+                        }
+                      },
+                    ),
                     isWishList
                         ? Expanded(
                             child: IconButton(

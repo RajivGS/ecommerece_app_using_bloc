@@ -1,3 +1,4 @@
+import 'package:ecommerece_app/blocs/cart/cart_bloc.dart';
 import 'package:ecommerece_app/blocs/wishlist/wishlist_bloc.dart';
 import 'package:ecommerece_app/config/app_router.dart';
 import 'package:ecommerece_app/config/theme.dart';
@@ -17,12 +18,13 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       // create: (context) => SubjectBloc(),
       providers: [
-        BlocProvider(create: (_) => WishlistBloc()..add(StartWishList()))
+        BlocProvider(create: (_) => WishlistBloc()..add(LoadWishList())),
+        BlocProvider(create: (_) => CartBloc()..add(LoadCart())),
       ],
       child: MaterialApp(
         theme: theme(),
         onGenerateRoute: AppRouter.onGenerateRoute,
-        initialRoute: HomeScreen.routeName,
+        initialRoute: SplashScreen.routeName,
         home: const HomeScreen(),
       ),
     );

@@ -3,6 +3,7 @@ import 'package:ecommerece_app/blocs/wishlist/wishlist_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../blocs/cart/cart_bloc.dart';
 import '../../model/model.dart';
 import '../../widgets/widgets.dart';
 
@@ -39,7 +40,7 @@ class ProductScreen extends StatelessWidget {
                       onPressed: () {
                         context
                             .read<WishlistBloc>()
-                            .add(AddWishlistProduct(product: product));
+                            .add(AddProductToWishlist(product: product));
 
                         const snackbar = SnackBar(
                           content: Text("Added to you Wishlist"),
@@ -49,16 +50,23 @@ class ProductScreen extends StatelessWidget {
                       icon: const Icon(Icons.favorite, color: Colors.white));
                 },
               ),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.black),
-                  onPressed: () {},
-                  child: Text(
-                    'ADD TO CART',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5!
-                        .copyWith(color: Colors.white),
-                  ))
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  return ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.black),
+                      onPressed: () {
+                        context.read<CartBloc>().add(AddProduct(product));
+                        Navigator.pushNamed(context, '/cart');
+                      },
+                      child: Text(
+                        'ADD TO CART',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5!
+                            .copyWith(color: Colors.white),
+                      ));
+                },
+              )
             ],
           ),
         ),
