@@ -34,20 +34,21 @@ class ProductCard extends StatelessWidget {
               top: 65,
               left: leftPosition,
               child: Container(
-                  width: widthValue - 5 - leftPosition,
+                  width: widthValue - 5,
                   height: 80,
                   decoration:
                       BoxDecoration(color: Colors.black.withAlpha(50)))),
           Positioned(
             top: 65,
-            left: leftPosition + 5,
+            left: leftPosition + 2,
             child: Container(
-              width: widthValue - 7 - leftPosition,
+              width: widthValue,
               height: 80,
               decoration: const BoxDecoration(color: Colors.black),
               child: Padding(
-                padding: const EdgeInsets.all(2 * .0),
+                padding: const EdgeInsets.all(1.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,

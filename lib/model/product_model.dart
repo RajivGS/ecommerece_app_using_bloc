@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class Product extends Equatable {
@@ -16,6 +17,17 @@ class Product extends Equatable {
     this.isRecommended,
     this.isPopular,
   );
+
+  static Product fromSnapShot(DocumentSnapshot snapshot) {
+    Product products = Product(
+        snapshot['name'],
+        snapshot['category'],
+        snapshot['imageUrl'],
+        snapshot['price'],
+        snapshot['isRecommended'],
+        snapshot['isPopular']);
+    return products;
+  }
 
   @override
   List<Object?> get props => [
@@ -147,8 +159,7 @@ class Product extends Equatable {
     const Product(
       'Smoothies #2',
       'Smoothies',
-
-      'https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1552&q=80', //https://unsplash.com/photos/CrK843Pl9a4
+      'https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1552&q=80',
       2.99,
       false,
       false,

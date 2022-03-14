@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, prefer_collection_literals
 
 import 'package:ecommerece_app/model/product_model.dart';
 import 'package:equatable/equatable.dart';
@@ -35,6 +35,19 @@ class Cart extends Equatable {
 
   double total(subtotal, deliveryfee) {
     return (subtotal + deliveryfee(subtotal));
+  }
+
+  Map productQuantity(products) {
+    var quantity = Map();
+
+    products.forEach((product) {
+      if (!quantity.containsKey(product)) {
+        quantity[product] = 1;
+      } else {
+        quantity[product] += 1;
+      }
+    });
+    return quantity;
   }
 
   @override
